@@ -1,28 +1,23 @@
 """
 CPU密集型任务 -- 进程测试
 
-time python process_worker.py
+[50492814, 50485302, 50493930, 50502064, 50527312, 50525403, 50498831, 50474334]
+function cost 5.98234224319458.
 
-Result [50545553, 50493810, 50511435, 50514261, 50432686, 50449326, 50514232, 50545287]
-python process_worker.py  9.88s user 0.08s system 716% cpu 1.391 total
 """
-
+import time
 import multiprocessing
 from multiprocessing import Pool
 import random
+from tools import TimeRecord
+
 
 def compute(n):
-    #return sum([random.randint(1, 100) for _ in range(1000000)])
-    return sum([random.randint(1, 100) for _ in range(10)])
-
-#if __name__ == '__main__':
-#    pool = multiprocessing.Pool(8)
-#    #print(f"Result {pool.map(compute, range(8))}")
-#    print(f"Result {pool.map(compute,range(8))}")
+    return sum([random.randint(1, 100) for _ in range(1000000)])
+    # return sum([random.randint(1, 100) for _ in range(10)])
 
 if __name__ == '__main__':
-    print('__name__',{__name__})
-    with Pool(5) as p:
-        print(p.map(compute, [1, 2, 3]))
-
-#print(compute())
+    # print('__name__',{__name__})
+    with Pool(6) as p:
+        with TimeRecord( ):
+            print(p.map(compute, range(8)))
